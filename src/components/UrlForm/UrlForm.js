@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { addUrl } from '../../actions';
+import { postUrls } from '../../apiCalls';
 import { connect } from 'react-redux';
 
-class UrlForm extends Component {
+export class UrlForm extends Component {
   constructor(props) {
     super();
     this.props = props;
@@ -16,16 +17,25 @@ class UrlForm extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  handleSubmit = e => {
+  handleSubmit = async(e) => {
     e.preventDefault();
-    const newUrl = {
-      id: Date.now(), 
-      title: this.state.title,
-      long_url: this.state.urlToShorten,
-      short_url: ''
-      }
+    const newUrl = await this.postUrlForShortening();
     this.props.addUrlToStore(newUrl)
     this.clearInputs();
+  }
+
+  postUrlForShortening = () => {
+    const options = {
+      method: 'POST',
+      body: JSON.stringify({
+        long_url: this.state.urlToShorten,
+        title: this.state.title,
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+    return postUrls(options);
   }
 
   clearInputs = () => {
