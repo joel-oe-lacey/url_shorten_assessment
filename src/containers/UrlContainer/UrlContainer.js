@@ -3,12 +3,19 @@ import './UrlContainer.css';
 import { connect } from 'react-redux';
 import { setUrls } from '../../actions';
 import { getUrls } from '../../apiCalls';
+import { deleteUrl } from '../../apiCalls';
 
 export class UrlContainer extends Component {
   componentDidMount() {
     getUrls()
       .then(data => this.props.setUrlsInStore(data.urls))
       .catch(err => console.error('Error fetching:', err));
+  }
+
+  deleteIdea = async (id) => {
+    await deleteUrl(id);
+    const testFetch = await getUrls();
+    this.props.setUrlsInStore(testFetch.urls)
   }
 
   render() {
@@ -18,6 +25,7 @@ export class UrlContainer extends Component {
           <h3>{url.title}</h3>
           <a href={url.short_url} target="blank">{url.short_url}</a>
           <p>{url.long_url}</p>
+          <button onClick={() => this.deleteIdea(url.id)}>Delete</button>
         </div>
       )
     });
