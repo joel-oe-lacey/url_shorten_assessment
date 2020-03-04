@@ -7,7 +7,7 @@ import { getUrls } from '../../apiCalls';
 export class UrlContainer extends Component {
   componentDidMount() {
     getUrls()
-      .then(data => this.props.setUrls(data.urls))
+      .then(data => this.props.setUrlsInStore(data.urls))
       .catch(err => console.error('Error fetching:', err));
   }
 
@@ -36,7 +36,7 @@ export const mapStateToProps = ({ urls }) => ({
 
 export const mapDispatchToProps = dispatch => {
   return {
-    setUrls: urls => dispatch(setUrls(urls))
+    setUrlsInStore: urls => dispatch(setUrls(urls))
   }
 };
 
