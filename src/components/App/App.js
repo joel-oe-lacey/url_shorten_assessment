@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
-import UrlContainer from '../../components/UrlContainer/UrlContainer';
-import UrlForm from '../../components/UrlForm/UrlForm';
+import UrlContainer from '../../containers/UrlContainer/UrlContainer';
+import UrlForm from '../UrlForm/UrlForm';
 
 const App = () => {
     return (
@@ -11,7 +11,7 @@ const App = () => {
           <UrlForm />
         </header>
 
-        <UrlContainer urls={this.props.urls}/>
+        <UrlContainer />
       </main>
   );
 }
