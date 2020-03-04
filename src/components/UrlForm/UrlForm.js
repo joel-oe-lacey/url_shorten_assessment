@@ -17,10 +17,10 @@ export class UrlForm extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  handleSubmit = async(e) => {
+  handleSubmit = async (e) => {
     e.preventDefault();
     const newUrl = await this.postUrlForShortening();
-    this.props.addUrlToStore(newUrl)
+    this.props.addUrlToStore(newUrl);
     this.clearInputs();
   }
 
